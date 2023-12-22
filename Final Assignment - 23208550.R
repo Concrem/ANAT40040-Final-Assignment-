@@ -326,26 +326,3 @@ km_fit <- survfit(Surv(as.numeric(Overall.Survival..Months.),as.numeric(Overall.
 summary(km_fit, times = c(1,30,60,90*(1:10)))
 autoplot(km_fit,xlab="Time in months",ylab = "Survival %", main ="Survival % vs Time in Months")
 
-
-
-
-
-
-# Transform the data to visualize
-vsd <- vst(dds)
-
-# Normalised data
-norm.data <- assay(vsd)
-
-# save to working directory
-write.table(norm.data, sep="\t",file="Norm_data_all_genes_NO_counts_cut_off.txt", row.names=TRUE,col.names=NA,quote=FALSE)
-
-#Calculate euclidean distance between samples
-sampleDists <- dist(t(norm.data),  method = "euclidean")
-
-#transpose the data
-reversed_rows_columns = (t(norm.data))
-
-clusters=hclust(sampleDists)
-
-plot(clusters)
